@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* === TODO, Get Hex from logo and update this palette) === */
+@theme {
+  --color-brand-50:  #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+}
+
+
+html, body, #root {
+  @apply min-h-screen bg-gradient-to-b from-brand-50 to-white text-neutral-900;
+}
+
+/* Uncomment if Vite is causing prolems:
+   #root { max-width: 1280px; padding: 0; text-align: initial; } */
+
+/* Links and focus */
+a { @apply text-brand-700 hover:text-brand-800; }
+:focus-visible { @apply outline-none ring-2 ring-brand-400; }
+
+/* rewritten and steamlined for reusabiity */
+.btn-primary { @apply inline-flex items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-5 py-3 text-sm font-medium shadow-sm hover:shadow transition; }
+.btn-outline { @apply inline-flex items-center rounded-xl border border-brand-300 text-brand-700 hover:bg-brand-50 px-5 py-3 text-sm font-medium transition; }
+.card       { @apply rounded-2xl border border-brand-200 bg-white shadow-sm; }
+.input      { @apply w-full rounded-xl border border-brand-200 px-3 py-2 focus:ring-2 focus:ring-brand-300; }
+.badge      { @apply inline-flex items-center gap-2 text-brand-800; }
+
+/* TODO INSERT IMAGE REFERENCES */
