@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* === TODO, Get Hex from logo and update this palette) === */
+/* === Playmakers brand palette (Tailwind v4 @theme) === */
 @theme {
   --color-brand-50:  #eef2ff;
   --color-brand-100: #e0e7ff;
@@ -14,23 +14,52 @@
   --color-brand-900: #312e81;
 }
 
+/* -------------------------------------------------------
+   Comfort Light surfaces (less bright, on-brand)
+   We mix brand-900 into white to cut glare.
+------------------------------------------------------- */
+:root {
+  /* page background */
+  --app-bg: color-mix(in oklab, var(--color-brand-900) 22%, white);
+  /* cards (most boxes) */
+  --card-bg: color-mix(in oklab, var(--color-brand-900) 16%, white);
+  /* larger panels/sections */
+  --panel-bg: color-mix(in oklab, var(--color-brand-900) 18%, white);
 
-html, body, #root {
-  @apply min-h-screen bg-gradient-to-b from-brand-50 to-white text-neutral-900;
+  /* subtle shadow color for soft depth on dim surfaces */
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.05), 0 1px 1px rgba(17, 24, 39, 0.04);
+
+  /* text tones (used by helper classes below) */
+  --text-1: #111827;            /* neutral-900 */
+  --text-2: #374151;            /* neutral-700 */
+  --text-3: #6b7280;            /* neutral-500 */
 }
 
-/* Uncomment if Vite is causing prolems:
-   #root { max-width: 1280px; padding: 0; text-align: initial; } */
+/* Base */
+html, body, #root {
+  @apply min-h-screen;
+  background: var(--app-bg);
+  color: var(--text-1);
+}
 
-/* Links and focus */
-a { @apply text-brand-700 hover:text-brand-800; }
-:focus-visible { @apply outline-none ring-2 ring-brand-400; }
+/* Improve readability a touch */
+body { @apply leading-relaxed; }
 
-/* rewritten and steamlined for reusabiity */
+/* Focus visibility */
+:focus-visible { @apply outline-none ring-2 ring-offset-2 ring-brand-400 ring-offset-[var(--panel-bg)]; }
+
+/* Reusable utilities (used throughout App.tsx) */
 .btn-primary { @apply inline-flex items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-5 py-3 text-sm font-medium shadow-sm hover:shadow transition; }
-.btn-outline { @apply inline-flex items-center rounded-xl border border-brand-300 text-brand-700 hover:bg-brand-50 px-5 py-3 text-sm font-medium transition; }
-.card       { @apply rounded-2xl border border-brand-200 bg-white shadow-sm; }
-.input      { @apply w-full rounded-xl border border-brand-200 px-3 py-2 focus:ring-2 focus:ring-brand-300; }
+.btn-outline { @apply inline-flex items-center rounded-xl border border-brand-300 text-brand-800 hover:bg-brand-50 px-5 py-3 text-sm font-medium transition; }
+.input      { @apply w-full rounded-xl border border-brand-200 px-3 py-2 focus:ring-2 focus:ring-brand-300; background: color-mix(in oklab, var(--card-bg) 92%, white); }
+.card       { @apply rounded-2xl border border-brand-200 shadow-sm; background: var(--card-bg); box-shadow: var(--shadow-sm); }
+.panel      { @apply rounded-2xl border border-brand-200 shadow-sm; background: var(--panel-bg); box-shadow: var(--shadow-sm); }
 .badge      { @apply inline-flex items-center gap-2 text-brand-800; }
 
-/* TODO INSERT IMAGE REFERENCES */
+/* Hero glow is softened a bit */
+.hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(79,70,229,0.08), transparent 60%); }
+
+/* Optional smaller helpers for consistent text contrast */
+.text-1 { color: var(--text-1); }
+.text-2 { color: var(--text-2); }
+.text-3 { color: var(--text-3); }
