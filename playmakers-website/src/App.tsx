@@ -769,7 +769,7 @@ export default function App() {
                     name="email"
                     required
                     className="input mt-1"
-                    placeholder="you@uni.edu"
+                    placeholder="name@domain.com"
                   />
                 </div>
                 <div className="sm:col-span-2">
