@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -15,7 +15,15 @@ import {
   Bug,
   Image as ImageIcon,
   Store,
+  Sun,
+  Moon,
+  Globe,
 } from "lucide-react";
+
+/* -----------------------------------------------------
+   TODO : Find 6 Games for the Projects Section, Prepare for deployment
+----------------------------------------------------- */
+const LOGO_SRC = "/logo.png";
 
 /* -----------------------------------------------------
    NAV
@@ -56,16 +64,15 @@ const events = [
 ];
 
 /* -----------------------------------------------------
-   STUDENT PROJECTS (6 slots with images + itch/steam)
-   Images go into /public/projects/ (e.g. /projects/project1.jpg)
+   STUDENT PROJECTS
 ----------------------------------------------------- */
 type Project = {
   title: string;
   desc: string;
-  image?: string; // /projects/filename.jpg
-  itch?: string; // itch.io url
-  steam?: string; // Steam url
-  link?: string; // extra "Learn more" url
+  image?: string;
+  itch?: string;
+  steam?: string;
+  link?: string;
 };
 
 const projects: Project[] = [
@@ -121,7 +128,6 @@ const projects: Project[] = [
 
 /* -----------------------------------------------------
    PDT CONTENT + IMAGES
-   Put thumbnails in /public/pdt/
 ----------------------------------------------------- */
 const pdtStats = [
   { label: "Since", value: "2020" },
@@ -192,7 +198,7 @@ const sponsors = [
 ];
 
 /* -----------------------------------------------------
-   CONTACT EMAIL SENDER (Join form)
+   CONTACT EMAIL SENDER
 ----------------------------------------------------- */
 async function sendQuestionEmail(data: {
   firstName: string;
@@ -223,6 +229,26 @@ async function sendQuestionEmail(data: {
   return res.json();
 }
 
+/* -----------------------------------------------------
+   THEME (light/dark)
+----------------------------------------------------- */
+type Theme = "light" | "dark";
+
+function getInitialTheme(): Theme {
+  try {
+    const stored = localStorage.getItem("pm-theme");
+    if (stored === "light" || stored === "dark") return stored;
+  } catch {}
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    return "dark";
+  }
+  return "light";
+}
+
 /* =====================================================
    APP
 ===================================================== */
@@ -231,10 +257,22 @@ export default function App() {
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+    try {
+      localStorage.setItem("pm-theme", theme);
+    } catch {}
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   return (
     <div id="home" className="min-h-dvh">
-      {/* Header (dimmed surface, not bright white) */}
+      {/* Header */}
       <header
         className="sticky top-0 z-50 backdrop-blur border-b border-brand-200"
         style={{
@@ -244,11 +282,14 @@ export default function App() {
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <a href="#home" className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-2xl bg-brand-800 text-white grid place-content-center shadow-sm">
-                <span className="text-sm font-bold">PM</span>
-              </div>
+              <img
+                src={LOGO_SRC}
+                alt="UTS Playmakers logo"
+                className="h-9 w-9 rounded-2xl object-contain bg-white/80 p-1 shadow-sm"
+              />
               <span className="font-semibold text-1">UTS Playmakers</span>
             </a>
+
             <ul className="hidden md:flex items-center gap-6 text-sm">
               {nav.map((n) => (
                 <li key={n.label}>
@@ -261,9 +302,36 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <a href="#join" className="btn-primary">
-              Join Us <ChevronRight className="ml-1 h-4 w-4" aria-hidden />
-            </a>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="inline-flex items-center rounded-xl border border-brand-300 px-3 py-2 text-sm font-medium bg-[var(--card-bg)] hover:bg-brand-50/40 transition"
+                aria-label="Toggle dark mode"
+                title={
+                  theme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                }
+              >
+                {theme === "dark" ? (
+                  <>
+                    <Sun className="h-4 w-4" />
+                    <span className="ml-2 hidden sm:inline">Light</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-4 w-4" />
+                    <span className="ml-2 hidden sm:inline">Dark</span>
+                  </>
+                )}
+              </button>
+
+              <a href="#join" className="btn-primary">
+                Join Us <ChevronRight className="ml-1 h-4 w-4" aria-hidden />
+              </a>
+            </div>
           </div>
         </nav>
       </header>
@@ -281,8 +349,11 @@ export default function App() {
             >
               <h1 className="text-4xl sm:text-4xl font-extrabold tracking-tight text-1">
                 Playmakers
-                <span className="block bg-gradient-to-r from-brand-900 to-brand-600 bg-clip-text text-transparent">
-                  A student run society for gamedevs and enthusiasts alike!
+                {/* One span that adapts via CSS variables */}
+                <span className="block headline-gradient">
+                  A student run society for
+                  <br className="hidden sm:block" />
+                  gamedevs and enthusiasts alike!
                 </span>
               </h1>
               <p className="mt-6 text-lg text-2 max-w-prose">
@@ -350,7 +421,37 @@ export default function App() {
         </div>
       </section>
 
-      {/* Events */}
+      {/* Acknowledgement of Country (About area add-on) */}
+      <section
+        aria-label="Acknowledgement of Country"
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-6 -mt-8"
+      >
+        <div className="panel relative overflow-hidden p-6 md:p-7">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-700 via-brand-500 to-brand-700" />
+          <div className="flex items-start gap-3">
+            <div className="rounded-xl bg-brand-50 border border-brand-200 p-2 text-brand-800 shrink-0">
+              <Globe className="h-5 w-5" aria-hidden />
+            </div>
+            <div>
+              <h2 className="text-lg font-semibold text-1">
+                Acknowledgement of Country
+              </h2>
+              <p className="mt-2 text-sm text-2 max-w-3xl">
+                We acknowledge the{" "}
+                <span className="font-medium">
+                  Gadigal people of the Eora Nation
+                </span>
+                , the Traditional Custodians of the Country on which UTS stands.
+                We pay our respects to Elders past and present and extend that
+                respect to all First Nations peoples who join our community and
+                events.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Events Section */}
       <section
         id="events"
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16"
@@ -390,7 +491,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Student Projects – 6 slots with custom images & links */}
+      {/* Student Projects Section */}
       <section
         id="projects"
         className="border-y border-brand-200"
@@ -433,7 +534,7 @@ export default function App() {
                     <ImageIcon className="h-7 w-7" />
                   </div>
 
-                  {/* Itch/Steam quick buttons */}
+                  {/* Itch.io/Steam quick buttons */}
                   <div className="absolute right-3 top-3 flex gap-2 opacity-0 group-hover:opacity-100 transition">
                     {p.itch && (
                       <a
@@ -515,7 +616,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* PDT */}
+      {/* PDT Section */}
       <section
         id="pdt"
         className="border-y border-brand-200"
@@ -669,7 +770,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Join – left info + right question form */}
+      {/* Join: left info + right question form */}
       <section
         id="join"
         className="text-white bg-gradient-to-br from-brand-900 to-brand-700"
@@ -727,7 +828,6 @@ export default function App() {
                     setStatus("success");
                     (e.currentTarget as HTMLFormElement).reset();
                   } catch {
-                    // Fallback to mailto if AJAX fails
                     try {
                       const subject = encodeURIComponent(
                         "Question via Playmakers website"
@@ -816,9 +916,11 @@ export default function App() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
             <div>
               <div className="flex items-center gap-2 font-semibold">
-                <div className="h-8 w-8 rounded-xl bg-brand-900 text-white grid place-content-center">
-                  PM
-                </div>
+                <img
+                  src={LOGO_SRC}
+                  alt="UTS Playmakers logo"
+                  className="h-8 w-8 rounded-xl object-contain bg-white p-1"
+                />
                 Playmakers Society
               </div>
               <p className="mt-3 text-2">The University of Technology Sydney</p>

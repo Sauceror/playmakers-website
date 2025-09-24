@@ -1,6 +1,27 @@
 @import "tailwindcss";
 
-/* === Playmakers brand palette (Tailwind v4 @theme) === */
+
+/* === Headline gradient that can adapt to light/dark theme toggles === */
+:root {
+  --headline-from: #111827;                 
+  --headline-to:   var(--color-brand-700);  
+}
+.dark {
+  --headline-from: #ffffff;                 
+  --headline-to:   var(--color-brand-200);  
+}
+
+/* Single utility to avoid tailwind clash/ordering issues */
+.headline-gradient{
+  background-image: linear-gradient(90deg, var(--headline-from), var(--headline-to));
+  background-clip: text;
+  -webkit-background-clip: text;      
+  color: transparent;                 
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* === Playmakers brand colour palette (Tailwind v4 @theme) === */
 @theme {
   --color-brand-50:  #eef2ff;
   --color-brand-100: #e0e7ff;
@@ -15,24 +36,33 @@
 }
 
 /* -------------------------------------------------------
-   Comfort Light surfaces (less bright, on-brand)
-   We mix brand-900 into white to cut glare.
+   LIGHT THEME (Comfort Light for reduced glare)
 ------------------------------------------------------- */
 :root {
-  /* page background */
   --app-bg: color-mix(in oklab, var(--color-brand-900) 22%, white);
-  /* cards (most boxes) */
   --card-bg: color-mix(in oklab, var(--color-brand-900) 16%, white);
-  /* larger panels/sections */
   --panel-bg: color-mix(in oklab, var(--color-brand-900) 18%, white);
 
-  /* subtle shadow color for soft depth on dim surfaces */
   --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.05), 0 1px 1px rgba(17, 24, 39, 0.04);
 
-  /* text tones (used by helper classes below) */
-  --text-1: #111827;            /* neutral-900 */
-  --text-2: #374151;            /* neutral-700 */
-  --text-3: #6b7280;            /* neutral-500 */
+  --text-1: #111827; /* neutral-900 */
+  --text-2: #374151; /* neutral-700 */
+  --text-3: #6b7280; /* neutral-500 */
+}
+
+/* -------------------------------------------------------
+   DARK THEME (html.dark)
+------------------------------------------------------- */
+.dark {
+  /* deeper brand-tinted surfaces */
+  --app-bg: color-mix(in oklab, var(--color-brand-900) 78%, black);
+  --panel-bg: color-mix(in oklab, var(--color-brand-900) 72%, black);
+  --card-bg: color-mix(in oklab, var(--color-brand-900) 66%, black);
+
+  /* readable text on dark */
+  --text-1: #e5e7eb; /* slate-200 */
+  --text-2: #cbd5e1; /* slate-300 */
+  --text-3: #94a3b8; /* slate-400 */
 }
 
 /* Base */
@@ -41,14 +71,13 @@ html, body, #root {
   background: var(--app-bg);
   color: var(--text-1);
 }
-
-/* Improve readability a touch */
 body { @apply leading-relaxed; }
 
-/* Focus visibility */
-:focus-visible { @apply outline-none ring-2 ring-offset-2 ring-brand-400 ring-offset-[var(--panel-bg)]; }
+/* Focus ring */
+:focus-visible { @apply outline-none ring-2 ring-offset-2 ring-brand-400; }
+:focus-visible { --tw-ring-offset-color: var(--panel-bg); }
 
-/* Reusable utilities (used throughout App.tsx) */
+/* Utilities in App.tsx */
 .btn-primary { @apply inline-flex items-center rounded-xl bg-brand-600 hover:bg-brand-700 text-white px-5 py-3 text-sm font-medium shadow-sm hover:shadow transition; }
 .btn-outline { @apply inline-flex items-center rounded-xl border border-brand-300 text-brand-800 hover:bg-brand-50 px-5 py-3 text-sm font-medium transition; }
 .input      { @apply w-full rounded-xl border border-brand-200 px-3 py-2 focus:ring-2 focus:ring-brand-300; background: color-mix(in oklab, var(--card-bg) 92%, white); }
@@ -56,10 +85,31 @@ body { @apply leading-relaxed; }
 .panel      { @apply rounded-2xl border border-brand-200 shadow-sm; background: var(--panel-bg); box-shadow: var(--shadow-sm); }
 .badge      { @apply inline-flex items-center gap-2 text-brand-800; }
 
-/* Hero glow is softened a bit */
-.hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(79,70,229,0.08), transparent 60%); }
+/* Dark variants for the utilities */
+.dark .btn-outline { color: var(--color-brand-200); border-color: color-mix(in oklab, var(--color-brand-400) 60%, black); }
+.dark .btn-outline:hover { background: color-mix(in oklab, var(--color-brand-900) 40%, transparent); }
 
-/* Optional smaller helpers for consistent text contrast */
+.dark .input {
+  background: color-mix(in oklab, var(--card-bg) 90%, black);
+  border-color: color-mix(in oklab, var(--color-brand-400) 45%, black);
+  color: var(--text-1);
+}
+.dark ::placeholder { color: color-mix(in oklab, var(--text-3) 80%, white); }
+
+.dark .badge { color: var(--color-brand-200); }
+
+/* Soften / adjust background glow */
+.hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(79,70,229,0.08), transparent 60%); }
+.dark .hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(129,140,248,0.22), transparent 60%); }
+
+/* Beneficial text tokens */
 .text-1 { color: var(--text-1); }
 .text-2 { color: var(--text-2); }
 .text-3 { color: var(--text-3); }
+
+/* Override a few Tailwind brand shades for better dark contrast */
+.dark .text-brand-800 { color: var(--color-brand-200) !important; }
+.dark .border-brand-200 { border-color: color-mix(in oklab, var(--color-brand-300) 60%, black) !important; }
+
+/* Keep section backgrounds consistent when components add white-tinted shades */
+.dark .bg-brand-50 { background-color: color-mix(in oklab, var(--color-brand-900) 35%, black) !important; }
