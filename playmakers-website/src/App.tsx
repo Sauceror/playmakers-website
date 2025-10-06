@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 /* -----------------------------------------------------
-   TODO : Find 6 Games for the Projects Section, Prepare for deployment
+   TODO : Update Project 6 Thumbnail, Prepare for deployment on Vercel
 ----------------------------------------------------- */
 const LOGO_SRC = "/logo.png";
 
@@ -43,7 +43,7 @@ const nav = [
 const events = [
   {
     title: "Playmakers Arcade",
-    date: "First Wednesday each month",
+    date: "First Thursday of each month",
     blurb:
       "Showcase your WIP, get feedback and meet the Sydney gamedev community.",
     icon: <Rocket className="h-5 w-5 text-brand-600" aria-hidden />,
@@ -56,9 +56,10 @@ const events = [
     icon: <Users className="h-5 w-5 text-brand-600" aria-hidden />,
   },
   {
-    title: "/*Placeholder*/",
+    title: "More Events",
     date: "See Discord Announcements",
-    blurb: "/* TODO: dynamically insert next biggest event */",
+    blurb:
+      "We run game jams, workshops, industry talks, convention visits and more! ",
     icon: <Calendar className="h-5 w-5 text-brand-600" aria-hidden />,
   },
 ];
@@ -77,52 +78,48 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Project Title 1",
-    desc: "Short description about the game",
+    title: "Pascal's Requiem",
+    desc: "Embark on an epic journey to change the past in this 2.5D adventure RPG! Conquer turn-based minigame battles to unravel a story of fate and self-discovery. Will you accept your fate, or forge a new destiny?",
     image: "/projects/project1.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    steam: "https://store.steampowered.com/app/3224780/Pascals_Requiem/",
+    link: "https://store.steampowered.com/app/3224780/Pascals_Requiem/",
   },
   {
-    title: "Project Title 2",
-    desc: "Short description about the game",
+    title: "Armless Samurai",
+    desc: "Armless Samurai is a fast paced first-person parkour game where you play as a samurai whose limbs have been lost in battle, and robbed from their arsenal. Worry not, however, they haven’t taken your legs yet! And this will be your enemy's greatest mistake…",
     image: "/projects/project2.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    steam: "https://store.steampowered.com/app/2800020/Armless_Samurai/",
+    link: "https://store.steampowered.com/app/2800020/Armless_Samurai/",
   },
   {
-    title: "Project Title 3",
-    desc: "Short description about the game",
+    title: "MMMMMM",
+    desc: "Multi-Merge Mix & Match Minigame Mayhem is a frantic local and online multiplayer party game for up to 8 players. Run, jump and punch your way through an onslaught of simultaneous microgames as you try to be the last one standing in each of them!",
     image: "/projects/project3.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    steam:
+      "https://store.steampowered.com/app/3655540/MMMMMM_MultiMerge_Mix__Match_Minigame_Mayhem/",
+    link: "https://store.steampowered.com/app/3655540/MMMMMM_MultiMerge_Mix__Match_Minigame_Mayhem/",
   },
   {
-    title: "Project Title 4",
-    desc: "Short description about the game",
-    image: "/projects/project4.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    title: "Chopsticks",
+    desc: "CHOPSTICKS is a local multiplayer fighting game set across the globe. With just one attack button and a focus on parrying, strategy is key. Each map opens up unique gameplay opportunities with map specific elements: from giant lasers to sticks that can be used as swords!",
+    image: "/projects/project4.png",
+    steam:
+      "https://store.steampowered.com/app/3982670/CHOPSTICKS_Stick_Figure_Fighting/",
+    link: "https://store.steampowered.com/app/3982670/CHOPSTICKS_Stick_Figure_Fighting/",
   },
   {
-    title: "Project Title 5",
-    desc: "Short description about the game",
+    title: "Quantum Loop",
+    desc: "Zoom and dodge your way about space, exploring the quadrant and solving intertwining objectives however you can. Hit an asteroid and the mission resets - but whatever you learn you can exploit in the next loop! Use your crafty wits and precise piloting in chorus to prevent the asteroid crisis!",
     image: "/projects/project5.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    steam: "https://store.steampowered.com/app/3186440/Quantum_Loop/",
+    link: "https://store.steampowered.com/app/3186440/Quantum_Loop/",
   },
   {
-    title: "Project Title 6",
-    desc: "Short description about the game",
+    title: "Arcane Raiders",
+    desc: "Arcane Raiders is a rogue-like dungeon-raider where you blast enemies with spells and maneuver through traps to pillage the Tower of its treasure. Tight dodging controls and powerful elemental synergies will help you in your quest to take down the Tower's fearsome bosses and make it out with as much gold as possible.",
     image: "/projects/project6.jpg",
-    itch: "#",
-    steam: "#",
-    link: "#",
+    steam: "https://store.steampowered.com/app/2899410/Arcane_Raiders/",
+    link: "https://store.steampowered.com/app/2899410/Arcane_Raiders/",
   },
 ];
 
@@ -191,10 +188,10 @@ function Thumb({ src, alt }: { src: string; alt: string }) {
    SPONSORS
 ----------------------------------------------------- */
 const sponsors = [
-  { name: "MSI Australia", href: "#" },
-  { name: "Riot Games", href: "#" },
-  { name: "/*Placeholder*/", href: "#" },
-  { name: "/*Placeholder*/", href: "#" },
+  { name: "MSI Australia", href: "https://au.msi.com/" }, //TEXTFIELD: Sponsors
+  { name: "Riot Games", href: "https://www.riotgames.com/en" },
+  { name: "SXSW", href: "https://www.sxswsydney.com/" },
+  { name: "ActivateUTS", href: "https://www.activateuts.com.au/" },
 ];
 
 /* -----------------------------------------------------
@@ -282,11 +279,13 @@ export default function App() {
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <a href="#home" className="flex items-center gap-3">
-              <img
-                src={LOGO_SRC}
-                alt="UTS Playmakers logo"
-                className="h-9 w-9 rounded-2xl object-contain bg-white/80 p-1 shadow-sm"
-              />
+              <div className="h-9 w-9 rounded-2xl overflow-hidden shadow-sm">
+                <img
+                  src={LOGO_SRC}
+                  alt="UTS Playmakers logo"
+                  className="h-full w-full object-contain"
+                />
+              </div>
               <span className="font-semibold text-1">UTS Playmakers</span>
             </a>
 
@@ -484,7 +483,7 @@ export default function App() {
                 href="#join"
                 className="mt-4 inline-flex items-center text-sm font-medium text-brand-800 hover:underline"
               >
-                RSVP <ChevronRight className="ml-1 h-4 w-4" />
+                Find out more <ChevronRight className="ml-1 h-4 w-4" />
               </a>
             </motion.article>
           ))}
@@ -502,8 +501,7 @@ export default function App() {
             Student Projects
           </h2>
           <p className="mt-3 text-2 max-w-prose">
-            A curated selection of society built games. Swap these cards with
-            PDT/game jam thumbnails and links.
+            A curated selection of society built games.
           </p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -916,13 +914,16 @@ export default function App() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-sm">
             <div>
               <div className="flex items-center gap-2 font-semibold">
-                <img
-                  src={LOGO_SRC}
-                  alt="UTS Playmakers logo"
-                  className="h-8 w-8 rounded-xl object-contain bg-white p-1"
-                />
+                <div className="h-8 w-8 rounded-xl overflow-hidden">
+                  <img
+                    src={LOGO_SRC}
+                    alt="UTS Playmakers logo"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
                 Playmakers Society
               </div>
+
               <p className="mt-3 text-2">The University of Technology Sydney</p>
               <p className="mt-1 inline-flex items-center gap-1 text-2">
                 <MapPin className="h-4 w-4 text-brand-700" /> 15 Broadway,
@@ -982,7 +983,7 @@ export default function App() {
                 </li>
                 <li className="inline-flex items-center gap-2">
                   <Github className="h-4 w-4 text-brand-700" />{" "}
-                  github.com/playmakers
+                  github.com/Playmakers-Development-Team
                 </li>
               </ul>
             </div>
