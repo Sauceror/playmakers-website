@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 /* -----------------------------------------------------
-   TODO : Update Project 6 Thumbnail, Prepare for deployment on Vercel
+   TODO : Prepare for deployment on Vercel
 ----------------------------------------------------- */
 const LOGO_SRC = "/logo.png";
 

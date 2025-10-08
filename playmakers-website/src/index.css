@@ -98,7 +98,7 @@ body { @apply leading-relaxed; }
 
 .dark .badge { color: var(--color-brand-200); }
 
-/* Soften / adjust background glow */
+/* Softening and adjusting the background glow */
 .hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(79,70,229,0.08), transparent 60%); }
 .dark .hero-glow { background: radial-gradient(60% 50% at 80% 0%, rgba(129,140,248,0.22), transparent 60%); }
 
@@ -107,7 +107,7 @@ body { @apply leading-relaxed; }
 .text-2 { color: var(--text-2); }
 .text-3 { color: var(--text-3); }
 
-/* Override a few Tailwind brand shades for better dark contrast */
+/* Override a few Tailwind brand shades for a better dark contrast */
 .dark .text-brand-800 { color: var(--color-brand-200) !important; }
 .dark .border-brand-200 { border-color: color-mix(in oklab, var(--color-brand-300) 60%, black) !important; }
 
