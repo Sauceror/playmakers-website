@@ -637,7 +637,10 @@ export default function App() {
               </dl>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#" className="btn-primary">
+                <a
+                  href="https://store.steampowered.com/search/?developer=Playmakers%20Development%20Team"
+                  className="btn-primary"
+                >
                   <Download className="mr-2 h-4 w-4" />
                   View on Steam
                 </a>
