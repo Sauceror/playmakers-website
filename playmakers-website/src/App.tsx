@@ -828,7 +828,7 @@ export default function App() {
                       const body = encodeURIComponent(
                         `From: ${firstName} ${lastName}\nEmail: ${email}\n\nQuestion:\n${question}`
                       );
-                      window.location.href = `mailto:playmakers.president@activateuts.com.au?subject=${subject}&body=${body}`;
+                      window.location.href = `mailto:president@playmakers.activateuts.com.au?subject=${subject}&body=${body}`;
                     } catch {}
                     setStatus("error");
                     setErrorMsg(
