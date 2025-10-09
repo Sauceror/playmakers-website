@@ -343,8 +343,7 @@ export default function App() {
                 Playmakers
                 {/* One span that adapts via CSS variables */}
                 <span className="block headline-gradient">
-                  A student run society for
-                  <br className="hidden sm:block" />
+                  A student run society for <br className="hidden sm:block" />
                   gamedevs and enthusiasts alike!
                 </span>
               </h1>
