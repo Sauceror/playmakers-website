@@ -2,12 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UTS Playmakers</title>
+
+
+    <link rel="icon" href="/logo.png" type="image/png" />
+
+
+    <meta name="color-scheme" content="dark light" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef0ff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f1f" />
+
+    
+    <style>html { background:#0b0f1f; }</style>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('pm-theme');
+          if (t !== 'light') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <noscript>Enable JavaScript to run this app.</noscript>
   </body>
 </html>
+

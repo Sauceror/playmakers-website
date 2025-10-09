@@ -79,7 +79,7 @@ type Project = {
 const projects: Project[] = [
   {
     title: "Pascal's Requiem",
-    desc: "Embark on an epic journey to change the past in this 2.5D adventure RPG! Conquer turn-based minigame battles to unravel a story of fate and self-discovery. Will you accept your fate, or forge a new destiny?",
+    desc: "Pascal's Requiem is a 2.5D turn-based RPG set in a sci-fi solarpunk world. In all battles, player and enemy moves are different microgames, ranging from petting a dog, to dodging laser beams, and even busting out some dance moves! Will you accept your fate, or forge a new destiny?",
     image: "/projects/project1.jpg",
     steam: "https://store.steampowered.com/app/3224780/Pascals_Requiem/",
     link: "https://store.steampowered.com/app/3224780/Pascals_Requiem/",
@@ -234,16 +234,9 @@ type Theme = "light" | "dark";
 function getInitialTheme(): Theme {
   try {
     const stored = localStorage.getItem("pm-theme");
-    if (stored === "light" || stored === "dark") return stored;
+    if (stored === "light" || stored === "dark") return stored as Theme;
   } catch {}
-  if (
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
-    return "dark";
-  }
-  return "light";
+  return "dark"; // default
 }
 
 /* =====================================================
