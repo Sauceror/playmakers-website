@@ -50,7 +50,7 @@ const events = [
   },
   {
     title: "Playmakers Hangout",
-    date: "Every 2nd Wednesday 5–9pm",
+    date: "Every 2nd Thursday 5–9pm",
     blurb:
       "Work on your projects, play games, chat, get dev help and most importantly; have fun.",
     icon: <Users className="h-5 w-5 text-brand-600" aria-hidden />,
