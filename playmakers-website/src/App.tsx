@@ -43,7 +43,7 @@ const nav = [
 const events = [
   {
     title: "Playmakers Arcade",
-    date: "First Thursday of each month",
+    date: "First Wednesday of each month",
     blurb:
       "Showcase your WIP, get feedback and meet the Sydney gamedev community.",
     icon: <Rocket className="h-5 w-5 text-brand-600" aria-hidden />,
@@ -190,7 +190,7 @@ function Thumb({ src, alt }: { src: string; alt: string }) {
 const sponsors = [
   { name: "MSI Australia", href: "https://au.msi.com/" }, //TEXTFIELD: Sponsors
   { name: "Riot Games", href: "https://www.riotgames.com/en" },
-  { name: "SXSW", href: "https://www.sxswsydney.com/" },
+  { name: "SXSW Sydney", href: "https://www.sxswsydney.com/" },
   { name: "ActivateUTS", href: "https://www.activateuts.com.au/" },
 ];
 
